@@ -1,0 +1,41 @@
+Given a binary tree of size N. Your task is to complete the function sumOfLongRootToLeafPath(), that find the sum of all nodes on the longest path from root to leaf node.
+If two or more paths compete for the longest path, then the path having maximum sum of nodes is being considered.
+
+//answer
+class Solution
+{
+public:
+    void solve(Node* root,int len , int &maxLen,int sum,int &maxSum)
+    {
+        if(root==NULL)
+        {
+            if(len>maxLen)
+            {
+                maxLen=len;
+                maxSum = sum;
+            }
+            else if(len==maxLen)
+            {
+                maxSum = max(sum,maxSum);
+            }
+            return;
+        }
+        //root->data is added to the sum with every recursion
+        sum+=root->data;
+        solve(root->left,len+1,maxLen,sum,maxSum);
+        solve(root->right,len+1,maxLen,sum,maxSum);
+        
+    }
+    int sumOfLongRootToLeafPath(Node *root)
+    {  
+        //len is taken to keep the length the nodes
+        int len = 0;
+        //max len to be updated
+        int maxLen =0;
+        int sum=0;
+        int maxSum =0;
+        solve(root,len,maxLen,sum,maxSum);
+        return maxSum;
+        
+    }
+};
