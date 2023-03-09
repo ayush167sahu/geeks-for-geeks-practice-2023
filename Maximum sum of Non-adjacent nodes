@@ -1,0 +1,39 @@
+Given a binary tree with a value associated with each node, we need to choose a subset of these nodes such that sum of chosen nodes is maximum under a constraint that no two chosen node in subset should be directly connected that is, if we have taken a node in our sum then we can’t take its any children or parents in consideration and vice versa.
+class Solution{
+  public:
+    //Function to return the maximum sum of non-adjacent nodes.
+    unordered_map<Node*,int> mp;
+    int getMaxSum(Node *root) 
+    {
+        //unordered_map<Node*,int> mp;
+        //the abpve declaration pf map also give TLE cuz it is called as many times as the fynction is called
+        if(root==NULL)
+          return 0;
+         if(mp[root])
+          return mp[root];
+        
+        //2 cases arrives
+        //with node
+        int withNode = root->data;
+        //thn recursive calls on grand children
+        //call on the left if it exixts
+        if(root->left!=NULL)
+        {
+           withNode+=getMaxSum(root->left->left);
+           withNode+=getMaxSum(root->left->right);
+        }
+        //call on the right if it exists
+        if(root->right!=NULL)
+        {
+            withNode+=getMaxSum(root->right->left);
+            withNode+=getMaxSum(root->right->right);
+        }
+        //withOutNode
+        
+        int withOutNode = getMaxSum(root->left)+getMaxSum(root->right);
+        
+         return  mp[root]=max(withNode,withOutNode);
+        
+       
+    }
+};
