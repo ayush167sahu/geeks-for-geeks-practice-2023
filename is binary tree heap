@@ -1,0 +1,76 @@
+is binary tree heap
+//approach
+//step1- check if it is a CBT or not
+//step-2 check if it follows heaaporder property or not
+class Solution {
+  public:
+    bool isMaxheap(struct Node* root)
+    {
+        if(root==NULL)
+          return true;
+        //if the node is a leaf node i.e if dont have any children
+        if(root->left==NULL && root->right==NULL) 
+          return true;
+        //as it comes here after a CBT thn it should be filled from left to right 
+        //if the lrft child exists and right dosent
+        if(root->right==NULL)
+          {
+              if(root->data<root->left->data)
+              {
+                  return false;
+              }
+          }
+          //if it has both the children
+          else
+          {
+              bool left = isMaxheap(root->left);
+              bool right = isMaxheap(root->right);
+             
+             return (left && right && root->data>root->left->data && root->data>root->right->data); 
+          }
+    }
+    bool isCBT(struct Node* root,int i, int &count)
+    {
+        //if the root has no child thn it is a complete binary tree
+        if(root==NULL)
+        {
+            return true;
+        }
+        //if the index exceeds the count thn it is not a cbt
+        if(i>=count)
+        {
+            return false;
+        }
+        //call on left and right part with the respective indices
+        else
+        {
+            bool left = isCBT(root->left,2*i+1,count);
+            bool right = isCBT(root->right,2*i+2,count);
+            return (left && right);
+            
+        }
+    }
+    int countNodes(struct Node* root)
+    {
+        if(root==NULL)
+          return 0;
+        
+        //the node is counted by adding the leftside nodes and right side node in the
+        //tree using recursion
+        return 1+ countNodes(root->left)+countNodes(root->right);
+        
+    }
+    bool isHeap(struct Node* tree) 
+    {
+        // code here
+        int i=0;
+        int count = countNodes(tree);
+        if(isCBT(tree,i,count) && isMaxheap(tree))
+        {
+            return true;
+        }
+        else
+           return false;
+    
+    }
+};
