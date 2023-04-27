@@ -1,0 +1,74 @@
+//rat in a maze 
+class Solution
+{
+    public:
+    bool isSafe(int newX,int newY,vector<vector<bool>> &vis,vector<vector<int>> &m,int n)
+    {
+        if( (newX>=0 && newX<n) && (newY>=0 && newY<n) && (vis[newX][newY]!=1) && (m[newX][newY]==1))
+        return true;
+        
+        else
+        return false;
+    }
+    void solve(int x,int y ,vector<vector<int>> &m,int n,vector<vector<bool>> &vis,vector<string>&ans,string path)
+    {
+        if(x==n-1 && y==n-1)
+        {
+            ans.push_back(path);
+        }
+        //thn we have to move in 4 levels i.e up down left right
+        
+        
+        //down
+        //vis[x][y]=1;
+        if(isSafe(x+1,y,vis,m,n))
+        {
+            vis[x][y]=1;
+            solve(x+1,y,m,n,vis,ans,path+'D');
+            vis[x][y]=0;
+        }
+        //left
+        if(isSafe(x,y-1,vis,m,n))
+        {
+            vis[x][y]=1;
+            solve(x,y-1,m,n,vis,ans,path+'L');
+            vis[x][y]=0;
+        }
+        //right
+        if(isSafe(x,y+1,vis,m,n))
+        {
+            vis[x][y]=1;
+            solve(x,y+1,m,n,vis,ans,path+'R');
+            vis[x][y]=0;
+        }
+        //up
+        if(isSafe(x-1,y,vis,m,n))
+        {
+            vis[x][y]=1;
+            solve(x-1,y,m,n,vis,ans,path+'U');
+            vis[x][y]=0;
+            
+        }
+       // vis[x][y]=0;
+        
+        
+    }
+    vector<string> findPath(vector<vector<int>> &m, int n) 
+    {
+        // Your code goes here
+        vector<string> ans;
+        vector<vector<bool>> vis(n,vector<bool>(n,0));
+       // vector<vector<bool>> vis(n,vector<bool>(n,0));
+        
+        //if the string is empty we have to return the empty string
+        //edge case
+        string path="";
+        if(m[0][0]==0)
+        {
+            return ans;
+        }
+        //else we hvae to do reccursive call
+        solve(0,0,m,n,vis,ans,path);
+        return ans;
+    }
+};
