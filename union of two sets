@@ -1,0 +1,24 @@
+//wap to findd the union of two containing distinct elements
+#include<bits/stdc++.h>
+vector<int> findUnion(int arr1[], int arr2[], int n, int m)
+{
+        //Your code here
+        //return vector with correct order of elements
+        set<int> st;
+        vector<int> ans;
+        for(int i=0;i<n;i++)
+        {
+            st.insert(arr1[i]);
+        }
+        for(int i=0;i<m;i++)
+        {
+            st.insert(arr2[i]);
+        }
+        
+        for(auto i=st.begin(); i!=st.end() ;i++)
+        {
+            ans.push_back(*i);
+        }
+        return ans;
+    }
+};
