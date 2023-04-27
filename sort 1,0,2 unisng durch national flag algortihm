@@ -1,0 +1,58 @@
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+// } Driver Code Ends
+class Solution
+{
+    public:
+    void sort012(int a[], int n)
+    {
+        //DUTCH NATIONAL FALG ALGORITHN
+        //**********************************
+        //for the follong code we will use the dutch national flag algorithm
+        //as we are using only one algorithn the time complexity of the following algorithm 
+        //will be log(n)
+        
+        //intuition
+        //we will take 3 pointer low,mid,high
+        //0-low-1 will contain only zeroes
+        //low to mid-1 will only contain 1's
+        //**imp mid to high will only contain the unsorted elements
+        //here as the whole array is unorsorted means that mid is 0 and high is n-1;
+        //and as low is the starting index it is 0;
+        //*****
+        //we will check the mid 
+        //1->if we encounter 0 zero we will swap it with the low which is in lest half
+        //2->if we encounter 1 we will then  increase the mid ans decrease the unsoreted array
+        //3->if we encounter 2 we will thn place it towards the last i.e right half and decrease the unsoreted array
+        
+        //code
+        int low=0;
+        int mid=0;
+        int high = n-1;
+        while(mid<=high)
+        {
+            if(a[mid]==0)
+            {
+                swap(a[mid],a[low]);
+                mid++;
+                low++;
+            }
+            else if(a[mid]==1)
+            {
+                mid++;
+            }
+            else
+            {
+                swap(a[mid],a[high]);
+                high--;
+            }
+        }
+     
+    }   
+    
+    
+};
