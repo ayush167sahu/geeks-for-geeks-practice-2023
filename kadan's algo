@@ -1,0 +1,33 @@
+//kadane's algorithm
+Given an array Arr[] of N integers. Find the contiguous sub-array(containing at least one number) which has the maximum sum and return its sum.
+ long long maxSubarraySum(int a[], int n)
+    {
+        
+        // Your code here
+        
+        //we will use kadane's algorithm 
+        //intuition
+        //we add the first element to the sum 
+        //if the lement is <0 the it the sum should be rest to be zero
+        //cuz there is no value in carrying a -ve elemenet as it would only reduce the maximum
+        //if thne sum is grether than the maximum we will update the maximum
+        
+        // as we have to return long long we will make variables of long long
+        long long sum=0;
+        long long maxi = LONG_MIN;
+        
+        for(int i=0;i<n;i++)
+        {
+            sum+=a[i];
+            
+            maxi= max(maxi,sum);
+            if(sum<0)
+            {
+                sum=0;
+            }
+        }
+        return maxi;
+        
+        
+    }
+};
